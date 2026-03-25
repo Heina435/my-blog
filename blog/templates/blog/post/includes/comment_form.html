@@ -1,0 +1,35 @@
+{# We remove 'mx-auto' so it aligns to the left. #}
+{# 'col-md-7' keeps the form from stretching too wide across the screen. #}
+<div class="col-md-7 text-start">
+    <h2 class="mb-3" style="color: #198754;">Add a new comment</h2>
+
+    <form action="{% url 'blog:post_comment' post.id %}" method="post" class="p-4 border rounded shadow-sm bg-white">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="mb-3">
+                <label for="{{ field.id_for_label }}" class="form-label fw-bold text-dark">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+            </div>
+        {% endfor %}
+
+        <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                Add comment
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(el => {
+            if (el.type !== 'submit' && el.type !== 'hidden') {
+                el.classList.add('form-control');
+            }
+        });
+    });
+</script>
